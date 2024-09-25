@@ -20,7 +20,7 @@ public class UserCourseEntity extends BaseEntity{
 	    @JoinColumn(name = "user_id", referencedColumnName = "id")
 	    private User user;
 	 
-	  @ManyToOne
-	    @JoinColumn(name = "course_id", referencedColumnName = "id")
-	    private CourseType course;
+//	  @ManyToOne
+//	    @JoinColumn(name = "course_id", referencedColumnName = "id")
+//	    private CourseType course;
 }
