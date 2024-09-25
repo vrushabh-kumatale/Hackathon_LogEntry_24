@@ -227,11 +227,11 @@ const Modules = () => {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-sm-10">
+        <div className="col-sm-15">
           <h5 className="p-2 mb-3" style={{ borderBottom: '2px solid green' }}>Available Course Modules</h5>
           <div className="row">
             <div className="col-sm-8">
-              <table className="table table-bordered table-sm">
+              {/* <table className="table table-bordered table-sm">
                 <thead>
                   <tr>
                     <th>Module ID</th>
@@ -240,7 +240,25 @@ const Modules = () => {
                     <th>Theory Hour</th>
                     <th>Lab Hour</th>
                   </tr>
-                </thead>
+                </thead> */}
+
+<table className="table table-striped table-hover table-responsive">
+  <thead className="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Module ID</th>
+      <th scope="col">Module Name</th>
+      <th scope="col">Course</th>
+      <th scope="col">Theory Hour</th>
+      <th scope="col">Lab Hour</th>
+    </tr>
+  </thead>
+  <tbody>
+   
+    
+  </tbody>
+</table>
+
                 <tbody>
                   {data.map((x, index) => (
                     <tr key={index}>
@@ -255,7 +273,7 @@ const Modules = () => {
                     </tr>
                   ))}
                 </tbody>
-              </table>
+             
             </div>
             <div className="col-sm-4">
               <h5 className="p-2">Add Module</h5>
@@ -310,8 +328,13 @@ const Modules = () => {
                   </select>
 
                 </div>
-                <button type="submit" className="btn btn-primary btn-sm float-right">Save Module</button>
-                <button type="button" className="btn btn-danger btn-sm float-right mr-2" onClick={() => setProduct({
+                {/* <button type="submit" className="btn btn-primary btn-sm float-right">Save </button> */}
+                <button type="submit" className="btn btn-success btn-lg btn-block">Save</button>
+
+                <button 
+  type="button" 
+  className="btn btn-warning btn-lg rounded float-left" 
+  onClick={() => setProduct({
                   moduleName: "",
                   course_id: "",
                   theoryHrs: "",
