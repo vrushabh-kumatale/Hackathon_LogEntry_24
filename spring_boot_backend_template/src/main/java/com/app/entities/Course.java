@@ -1,7 +1,6 @@
 package com.app.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,9 +12,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
+public class Course extends BaseEntity{
 
-@Table(name = "Course_Type")
-public class CourseType extends BaseEntity {
-
-	private String courseType;
+	private String courseName;
 }

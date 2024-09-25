@@ -25,10 +25,10 @@ public class LogEntity extends BaseEntity {
 	
 	private LocalTime endTime;
 	
-	@ManyToOne
-	@JoinColumn(name = "course_id")
-	private CourseType course;
-	
+//	@ManyToOne
+//	@JoinColumn(name = "course_id")
+//	private CourseType course;
+//	
 	@ManyToOne
 	@JoinColumn(name = "module_id")
 	private Module module;
