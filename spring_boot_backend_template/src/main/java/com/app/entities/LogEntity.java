@@ -31,7 +31,7 @@ public class LogEntity extends BaseEntity {
 //	
 	@ManyToOne
 	@JoinColumn(name = "module_id")
-	private Module module;
+	private Modules module;
 	
 	@ManyToOne
 	@JoinColumn(name = "entry_type_id")
