@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Registration from './component/Registration';
 import Dashboard from './component/Dashboard';
 import Modules from './component/Modules';
+import LogSubmit from './component/LogSubmit';
 
 
 
@@ -20,6 +21,7 @@ function App() {
       <Route path='/registration' element={<Registration/>}></Route>
       <Route path='/dashboard' element={<Dashboard/>}></Route>
       <Route path='/modules' element={<Modules/>}></Route>
+      <Route path = '/logs-submitted' element={<LogSubmit/>}></Route>
       
      
     </Routes>

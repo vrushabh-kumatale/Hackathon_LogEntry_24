@@ -61,7 +61,7 @@ public class ModuleServiceImpl implements ModuleService{
 		module.setModuleName(dto.getModuleName());
 		module.setTheoryHrs(dto.getTheoryHrs());
 		module.setLabHrs(dto.getLabHrs());
-		module.setModuleRouterName(dto.getModuleName());
+		//module.setModuleRouterName(dto.getModuleName());
 		module.setCourse(co);
 		moduleDao.save(module);
 		
