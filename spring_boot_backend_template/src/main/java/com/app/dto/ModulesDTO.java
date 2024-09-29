@@ -17,5 +17,5 @@ public class ModulesDTO {
 	
 	private int labHrs;
 	
-	private String moduleRouterName;
+	//private String moduleRouterName;
 }

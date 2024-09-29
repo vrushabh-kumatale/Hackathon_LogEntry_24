@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+//import { useNavigate } from "react-router-dom";
 import './form-control.css';
 import './form-group.css';
 
@@ -14,6 +15,8 @@ const Modules = () => {
     theoryHrs: "",
     labHrs: ""
   });
+
+ // const navigate = useNavigate();
 
   useEffect(() => {
     loadData();
@@ -55,11 +58,12 @@ const Modules = () => {
         toast.success("Module saved successfully");
         setProduct({
           moduleName: "",
-          courseId: "",
+          course_id: "",
           theoryHrs: "",
           labHrs: ""
         });
         loadData();
+       // navigate("/dashboard");
       })
       .catch(error => {
         toast.error("Failed to save module");
@@ -82,7 +86,7 @@ const Modules = () => {
                 <th>Course Name</th>
                 <th>Theory Hour</th>
                 <th>Lab Hour</th>
-                <th>Actions</th>
+                <th>Delete Button</th>
               </tr>
             </thead>
             <tbody>
