@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './LogSubmit.css'; // Optional: Add custom styles
+ 
 
 const LogSubmit = () => {
   const [logEntry, setLogEntry] = useState({
@@ -9,6 +10,7 @@ const LogSubmit = () => {
     module: '',
   //  type: 'Lab', // Default log type
     status: 'submitted', // Default status
+    course: ''
   });
 
   const handleChange = (e) => {
@@ -25,7 +27,8 @@ const LogSubmit = () => {
   };
 
   return (
-    <div className="log-submit-container">
+
+    <div>
       <h2>Submit a New Log</h2>
       <form onSubmit={handleSubmit} className="log-form">
         <div className="form-group">
@@ -56,6 +59,18 @@ const LogSubmit = () => {
             type="time"
             name="toTime"
             value={logEntry.toTime}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Course</label>
+          <input
+            type="text"
+            name="course"
+            placeholder="e.g.,WPT"
+            value={logEntry.course}
             onChange={handleChange}
             required
           />
@@ -103,7 +118,10 @@ const LogSubmit = () => {
         <button type="submit" className="btn-submit">Add Log</button>
       </form>
     </div>
+
   );
 };
 
 export default LogSubmit;
+
+
