@@ -95,7 +95,7 @@ const Modules = () => {
                   <td>{index + 1}</td>
                   <td>{x.id}</td>
                   <td>{x.moduleName}</td>
-                  <td>{x.course_id}</td>
+                  <td>{x.course.courseName}</td>
                   <td>{x.theoryHrs}</td>
                   <td>{x.labHrs}</td>
                   <td>
