@@ -1,15 +1,11 @@
 package com.app.entities;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,22 +20,14 @@ import lombok.ToString;
 @NoArgsConstructor
 public class LogEntry extends BaseEntity{
 
-//	private String title;
-//	private String description;
-//	
-//	@Column(name = "topic_required", nullable = false)
-//	private boolean topicRequired;
-//	
-//	@Column(name = "group_required", nullable = false)
-//	private boolean groupRequired;
 	
-	private Date date;
+	private String date;
 	
 	@Column(name="from_time")
-	private Date fromTime;
+	private String fromTime;
 	
 	@Column(name="to_time")
-	private Date toTime;
+	private String toTime;
 	
 	@ManyToOne
 	@JoinColumn(name="course_id")
@@ -49,8 +37,7 @@ public class LogEntry extends BaseEntity{
 	@JoinColumn(name="module_id")
 	private Modules module;
 	
-//	@Column(nullable = false)
-//    private String type;
+   //private String groupName;
 	
 	
 	@Column(nullable = false)
