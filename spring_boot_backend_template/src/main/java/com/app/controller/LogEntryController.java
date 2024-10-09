@@ -1,7 +1,5 @@
 package com.app.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.LogEntryReqDTO;
-import com.app.dto.LogEntryRespDTO;
-import com.app.entities.LogEntry;
 import com.app.service.LogEntryService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,21 +24,23 @@ public class LogEntryController {
 	
 	@PostMapping("/add")
 	@Operation(summary="log added ")
-//	public LogEntry addLogEntry(@RequestBody LogEntry logEntry) {
-//		return logEntryService.saveLogEntry(logEntry);
-//		
-//	}
-	 public ResponseEntity<LogEntryRespDTO> saveLogEntry(@RequestBody LogEntryReqDTO logEntryReqDTO) {
-        LogEntryRespDTO savedLog = logEntryService.saveLogEntry(logEntryReqDTO);
-        return ResponseEntity.ok(savedLog);
+	 public ResponseEntity<?> saveLogEntry(@RequestBody LogEntryReqDTO logEntryReqDTO) {
+		logEntryService.saveLog(logEntryReqDTO);
+        return ResponseEntity.ok("log added successfully");
     }
 	
+//	@GetMapping("/all")
+//	@Operation(summary="get all logs")
+//	public List<LogEntryRespDTO> getAllLogs() {
+//		return logEntryService.listall();
+//		
+//	}
+
 	@GetMapping("/all")
 	@Operation(summary="get all logs")
-	public List<LogEntryRespDTO> getAllLogs() {
-		return logEntryService.getAllLogs();
+	public ResponseEntity<?> findAll() {
+		return ResponseEntity.ok(logEntryService.listall());
 		
 	}
-	
 }
 
