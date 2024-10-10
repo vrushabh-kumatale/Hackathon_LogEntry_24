@@ -12,7 +12,7 @@ const Dashboard = () => {
          
           <h1>SUNBEAM</h1>
         </div>
-        <nav className="sidebar-nav">
+
           <ul>
             <li><a href="#">Dashboard</a></li>
             <li><a href="#">Tasks</a></li>
@@ -24,7 +24,7 @@ const Dashboard = () => {
             <li><a href="#">Profile</a></li>
             <li><a href="#">Help</a></li>
           </ul>
-        </nav>
+      
       </aside>
 
       {/* Main content section */}
