@@ -18,8 +18,8 @@ const Dashboard = () => {
             <li><a href="#">Tasks</a></li>
             <li><a href="#">Timesheet</a></li>
             <li><a href="#">Question Bank</a></li>
-            <li><a href="#">Feedback</a></li>
-            <Link to="/modules" className="list-group-item list-group-item-action p-2 text-left">Modules</Link>
+            <li><a href="">Feedback</a></li>
+            <Link to="/modules" >Modules</Link>
             <li><a href="#">Courses</a></li>
             <li><a href="#">Profile</a></li>
             <li><a href="#">Help</a></li>
@@ -59,9 +59,9 @@ const Dashboard = () => {
 
   {/* Second Row for Logs Submitted and other data */}
   <div className="row">
-    <Link to="/logs-submitted" className="card">Logs Submitted </Link>
+    <Link to="/logssubmitted" className="card">Logs Submitted </Link>
 
-    <Link to="/logs-verified" className="card">Logs Verified</Link>
+    <Link to="/logs" className="card">Logs</Link>
 
     <Link to="/approved-logs" className="card">Approved Logs </Link>
 

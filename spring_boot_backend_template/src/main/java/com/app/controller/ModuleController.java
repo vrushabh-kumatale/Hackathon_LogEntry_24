@@ -32,7 +32,7 @@ public class ModuleController {
 		
 	}
 	
-	@GetMapping
+	@GetMapping("/findall")
 	@Operation(summary= "Find all modules")
 	public ResponseEntity<?> findAll() {		
 		return ResponseEntity.ok(moduleService.listall());

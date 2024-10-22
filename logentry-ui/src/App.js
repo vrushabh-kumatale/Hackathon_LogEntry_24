@@ -8,6 +8,7 @@ import Registration from './component/Registration';
 import Dashboard from './component/Dashboard';
 import Modules from './component/Modules';
 import LogSubmit from './component/LogSubmit';
+import Logs from './component/Logs';
 
 
 
@@ -21,7 +22,9 @@ function App() {
       <Route path='/registration' element={<Registration/>}></Route>
       <Route path='/dashboard' element={<Dashboard/>}></Route>
       <Route path='/modules' element={<Modules/>}></Route>
-      <Route path = '/logs-submitted' element={<LogSubmit/>}></Route>
+      <Route path = '/logssubmitted' element={<LogSubmit/>}></Route>
+      <Route path = '/logs' element={<Logs/>}></Route>
+
       
      
     </Routes>
