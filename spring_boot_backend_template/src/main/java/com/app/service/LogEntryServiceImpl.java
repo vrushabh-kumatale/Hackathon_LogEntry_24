@@ -29,7 +29,7 @@ public class LogEntryServiceImpl implements LogEntryService{
 	 private CourseService courseService;
 	 
 	 @Autowired
-	 private ModuleDao moduleService;
+	 private ModuleService moduleService;
 
 	@Override
 	public void saveLog(LogEntryReqDTO dto) {
@@ -51,10 +51,45 @@ public class LogEntryServiceImpl implements LogEntryService{
 		
 		return logEntryDao.findAll();
 	}
+	
+	public List<LogEntry> listByCourse(long id){
+		return logEntryDao.findByCourse(courseService.findById(id));
+	}
+	
+	// list by module
+	public List<LogEntry> listByModule(long id){
+		return logEntryDao.findByModule(moduleService.findById(id));
+	}
 
 	@Override
 	public LogEntry findById(long id) {
 		return logEntryDao.getById(id);
+	}
+	
+	 public void deleteLog(long id) {
+	        // Find the log entry by ID and ensure it exists before deletion
+	        LogEntry logEntry = logEntryDao.findById(id)
+	                .orElseThrow(() -> new IllegalArgumentException("Log entry not found with ID: " + id));
+	        
+	        // Delete the log entry
+	        logEntryDao.delete(logEntry);
+	    }
+
+	@Override
+	public void updateLog(long id, LogEntryReqDTO dto) {
+
+		LogEntry existLog = logEntryDao.findById(id)
+				.orElseThrow(()-> new RuntimeException("Log not found:"+id));
+		
+		existLog.setDate(dto.getDate());
+		existLog.setFromTime(dto.getFromTime());
+        existLog.setToTime(dto.getToTime());
+       // existLog.setCourseId(dto.getCourseId());
+       // existLog.setModuleId(dto.getModuleId());
+        existLog.setStatus(dto.getStatus());
+        
+        logEntryDao.save(existLog);
+        
 	}
 
 	

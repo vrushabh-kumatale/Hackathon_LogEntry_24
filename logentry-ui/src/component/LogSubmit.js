@@ -1,40 +1,114 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import './LogSubmit.css'; // Optional: Add custom styles
- 
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import './Dashboard.css';
+import { useNavigate } from 'react-router-dom';
 
 const LogSubmit = () => {
+  const [courses, setCourses] = useState([]);
+  const [modules, setModules] = useState([]);
   const [logEntry, setLogEntry] = useState({
     date: '',
     fromTime: '',
     toTime: '',
-    module: '',
-  //  type: 'Lab', // Default log type
-    status: 'submitted', // Default status
-    course: ''
+    moduleId: '',
+    courseId: '',
+    status: 'submitted',
+    // type: 'Lab', // Uncomment if 'type' is required by LogEntryReqDTO
   });
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+  
+    // Fetch courses data
+    const fetchCourses = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/courses');
+        setCourses(response.data);
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+        toast.error('Failed to fetch courses');
+      }
+    };
+
+    // Fetch modules data
+    const fetchModules = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/modules/findall');
+        setModules(response.data);
+      } catch (error) {
+        console.error('Error fetching modules:', error);
+        toast.error('Failed to fetch modules');
+      }
+    };
+
+    fetchCourses();
+    fetchModules();
+  }, []);
+
   const handleChange = (e) => {
-    setLogEntry({
-      ...logEntry,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setLogEntry((prevEntry) => ({
+      ...prevEntry,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Log entry submitted:', logEntry);
-    // Here, you can add functionality to submit the log to the backend API
+
+    // Validate all required fields
+    const { date, fromTime, toTime, moduleId, courseId } = logEntry;
+    if (!date || !fromTime || !toTime || !moduleId || !courseId) {
+      toast.error('Please fill in all required fields');
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        'http://localhost:8080/logs/add',
+        logEntry, // Send as JSON
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      toast.success('Log added successfully');
+    
+      // Reset form
+      setLogEntry({
+        date: '',
+        fromTime: '',
+        toTime: '',
+        moduleId: '',
+        courseId: '',
+        status: 'submitted',
+        // type: 'Lab', // Reset if 'type' is used
+      });
+
+      navigate('/logs');
+    } catch (error) {
+      console.error('Failed to add log:', error);
+      toast.error('Failed to add log');
+    }
   };
+
+  
 
   return (
-
-    <div>
+    <div className="log-submit-container">
       <h2>Submit a New Log</h2>
       <form onSubmit={handleSubmit} className="log-form">
+        {/* Date Field */}
         <div className="form-group">
-          <label>Date</label>
+          <label htmlFor="date">Date<span className="required">*</span></label>
           <input
             type="date"
+            id="date"
             name="date"
             value={logEntry.date}
             onChange={handleChange}
@@ -42,10 +116,12 @@ const LogSubmit = () => {
           />
         </div>
 
+        {/* From Time Field */}
         <div className="form-group">
-          <label>From</label>
+          <label htmlFor="fromTime">From<span className="required">*</span></label>
           <input
             type="time"
+            id="fromTime"
             name="fromTime"
             value={logEntry.fromTime}
             onChange={handleChange}
@@ -53,10 +129,12 @@ const LogSubmit = () => {
           />
         </div>
 
+        {/* To Time Field */}
         <div className="form-group">
-          <label>To</label>
+          <label htmlFor="toTime">To<span className="required">*</span></label>
           <input
             type="time"
+            id="toTime"
             name="toTime"
             value={logEntry.toTime}
             onChange={handleChange}
@@ -64,49 +142,56 @@ const LogSubmit = () => {
           />
         </div>
 
+        {/* Course Selection */}
         <div className="form-group">
-          <label>Course</label>
-          <input
-            type="text"
-            name="course"
-            placeholder="e.g.,WPT"
-            value={logEntry.course}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Module</label>
-          <input
-            type="text"
-            name="module"
-            placeholder="e.g., Web Programming Technologies"
-            value={logEntry.module}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Type</label>
+          <label htmlFor="courseId">Course<span className="required">*</span></label>
           <select
-            name="type"
-            value={logEntry.type}
+            id="courseId"
+            name="courseId"
+            value={logEntry.courseId}
             onChange={handleChange}
+            required
+            className="form-control"
           >
-            <option value="Lab">Lab</option>
-            <option value="Lecture">Theory</option>
-            <option value="Workshop">Course Management</option>
+            <option value="">Select Course</option>
+            {courses.map((course) => (
+              <option key={course.id} value={course.id}>
+                {course.courseName}
+              </option>
+            ))}
           </select>
         </div>
 
+        {/* Module Selection */}
         <div className="form-group">
-          <label>Status</label>
+          <label htmlFor="moduleId">Module<span className="required">*</span></label>
           <select
+            id="moduleId"
+            name="moduleId"
+            value={logEntry.moduleId}
+            onChange={handleChange}
+            required
+            className="form-control"
+          >
+            <option value="">Select Module</option>
+            {modules.map((module) => (
+              <option key={module.id} value={module.id}>
+                {module.moduleName}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Status Selection */}
+        <div className="form-group">
+          <label htmlFor="status">Status<span className="required">*</span></label>
+          <select
+            id="status"
             name="status"
             value={logEntry.status}
             onChange={handleChange}
+            required
+            className="form-control"
           >
             <option value="submitted">Submitted</option>
             <option value="verified">Verified</option>
@@ -115,13 +200,13 @@ const LogSubmit = () => {
           </select>
         </div>
 
-        <button type="submit" className="btn-submit">Add Log</button>
+        {/* Submit Button */}
+        <button type="submit"  className="btn-submit">
+          Add Log
+        </button>
       </form>
     </div>
-
   );
 };
 
 export default LogSubmit;
-
-
